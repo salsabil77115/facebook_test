@@ -11,36 +11,40 @@ $('#login_button').click(function() {
   type:'post',
   url:'do_login.php',
   data:{
-   do_login:"do_login",
+	    do_login:"do_login",
+
    id:email,
    password:pass
   },
   success:function(response) {
-  if(response=="success")
+  if(response==1)
   {
     window.location.href="index.php";
-  }
-  
-  else
+  }else if(response==2)
   {
-	alert(response);
+
 $(document).ready(function(){
-    $("#text_login").text("Wrong Details");
+    $("#text_login").text("please enter your email or mobile number");
  
 });
-  }
+  }else if(response==3)
+  {
+
+$(document).ready(function(){
+    $("#text_login").text("please enter your password");
+ 
+});
+  }else{
+	$(document).ready(function(){
+    $("#text_login").text("server error");
+ 
+});
+}
   }
   });
  }
 
- else
- {
- 
-$(document).ready(function(){
-    $("#text_login").text("Please Fill All The Details");
- 
-});
- }
+
 
  return false;
 })
@@ -55,25 +59,10 @@ $('#sign_button').click(function() {
  var year=$("#year").find(":selected").text();
  var month=$("#month").find(":selected").text();
  var gender=$("input[name=Gender]").val();
- var atposition=email.indexOf("@");  
- var dotposition=email.lastIndexOf(".");  
+
  if(email!="" && pass!=""&&First_name!=""&&Last_name!=""&&day!=""&&month!=""&&year!="")
  {
- if(pass.length<6){  
-   $(document).ready(function(){
-    $("#text_sign").text("Password must be at least 6 characters long.");
  
-});
- 
-  }
-  else if(atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length){
-  $(document).ready(function(){
-    $("#text_sign").text("Please enter a valid e-mail address  \n contain @,.com \n or right phone number");
- 
-});
-    
-  }
-  else{
   $.ajax
   ({
   type:'post',
@@ -90,30 +79,31 @@ $('#sign_button').click(function() {
    gender:gender
   },
   success:function(response) {
-  if(response=="success")
+  if(response==1)
   {
     window.location.href="index.php";
   }
   
-  else
+  else if(response==2)
   {
 $(document).ready(function(){
-    $("#text_sign").text("Wrong Details");
+    $("#text_sign").text("please fill all fields");
  
 });
-  }
+  }else if(response==3){
+	$(document).ready(function(){
+    $("#text_sign").text("Invalid email format");
+ 
+});
+  }else if(response==4){
+	$(document).ready(function(){
+    $("#text_sign").text("Password must be at least 8 characters in length and must contain at least one number, one upper case letter, one lower case letter and one special character.");
+ 
+});
+}
   }
   });
 
- }}
-
- else
- {
- 
-$(document).ready(function(){
-    $("#text_sign").text("Please Fill All The Details");
- 
-});
  }
 
  return false;

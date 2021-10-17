@@ -5,12 +5,8 @@
     try{
         $database = new Connection();
         $dbcon = $database->openConnection();
-        
 
     if(isset($_POST['do_signup'])){
-
-      
-     
         $firstName=$_POST['First_name'];
         $surname=$_POST['Last_name'];
         $id=$_POST['email'];
@@ -19,7 +15,22 @@
         $year=$_POST['year'];
         $month=$_POST['month'];
         $gender=$_POST['gender'];
-
+         if(empty($firstName)||empty($surname)||empty($id)||empty($password)||empty($day)||empty($month)||empty($year)||empty($gender))
+         {
+             echo 2;
+             die();
+         }       
+        if(strlen($password) < 8 || !$number || !$uppercase || !$lowercase || !$specialChars)
+        {
+            echo 4;
+            die();
+        }       
+         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+         {
+                echo 3;
+                die();
+         }
+          
         $date_of_brith=$day."/".$month."/".$year;
 
         $result = $dbcon->query("INSERT INTO users (first_name, surname,email,password,Date_of_birth,gender)

@@ -240,7 +240,7 @@
 	</div>
   </div>
 </div>
-<script src="ajax.js?version=2" type="text/javascript"></script>
+<script src="ajax.js?version=5" type="text/javascript"></script>
 
 </body>
 </html>
