@@ -15,8 +15,9 @@
         $id=$_POST['id'];
         $password=$_POST['password'];
         $result = $dbcon->query("SELECT * FROM `users` WHERE `mobile`='$id' or `email`='$id' and `password`='$password'");
-      
-        if ($result){
+       $number_of_rows = $result->fetchColumn();
+        
+        if ($number_of_rows>0){
             $_SESSION['client_id']=$id;
     	    echo "success";
     	}
