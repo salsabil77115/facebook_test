@@ -1,10 +1,11 @@
 <?php 
 
     session_start();
-    include_once 'Connection.php';
+    require_once ('Connection.php');
     try{
-        $database = new Connection();
-        $dbcon = $database->openConnection();
+        $dbcon = Connection::getInstance();
+        Connection::setCharsetEncoding();
+        
 
     if(isset($_POST['do_signup'])){
         $firstName=$_POST['First_name'];
@@ -15,19 +16,22 @@
         $year=$_POST['year'];
         $month=$_POST['month'];
         $gender=$_POST['gender'];
-         if(empty($firstName)||empty($surname)||empty($id)||empty($password)||empty($day)||empty($month)||empty($year)||empty($gender))
-         {
-             echo 2;
+        $number = preg_match('@[0-9]@', $password);
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+      if(empty($firstName)||empty($surname)||empty($id)||empty($password)||empty($day)||empty($month)||empty($year)||empty($gender)){
+             echo 'empty';
              die();
          }       
         if(strlen($password) < 8 || !$number || !$uppercase || !$lowercase || !$specialChars)
         {
-            echo 4;
+            echo 'failed password';
             die();
         }       
-         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        if (!filter_var($id, FILTER_VALIDATE_EMAIL))
          {
-                echo 3;
+                echo 'invalid email';
                 die();
          }
           
@@ -40,10 +44,10 @@
         if ($result){
             
                 $_SESSION['client_id']=$id;
-                echo "success";
+                echo 'ok';
             }
             else{
-    	        echo "fail";
+    	        echo 'fail';
 
             }
             exit();
@@ -51,7 +55,6 @@
 
 
     }
-    $database->closeConnection();
     
     }catch (PDOException $e)
     {
