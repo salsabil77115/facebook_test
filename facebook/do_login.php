@@ -3,7 +3,7 @@
 
     session_start();
 
-    include_once 'connection.php';
+    include_once 'Connection.php';
     try{
     $database = new Connection();
     $dbcon = $database->openConnection();
