@@ -17,15 +17,15 @@
                 die();
             }
             
-            if(empty($_POST['pass']))
+            if(empty($_POST['password']))
             {
                 echo "pls enter password";
                 die();
             }
 
-            $id = $_POST['id'];
+            $id = $_POST['email'];
             $password = $_POST['password'];
-            $result = $dbcon->query("SELECT * FROM `users` WHERE `mobile`='$id' or `email`='$id' and `password`='$password'");
+            $result = $dbcon->query("SELECT * FROM `users` WHERE `mobile`='$id' or `email`='$id' and `password`='$password' LIMIT 1;");
             $number_of_rows = $result->fetchColumn();
             
             if ($number_of_rows > 0){

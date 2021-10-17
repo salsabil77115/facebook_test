@@ -12,8 +12,8 @@ $(document).ready(function(){
             url:'do_login.php',
             data:{
               do_login: true,
-            email: email,
-            password: pass
+              email: email,
+              password: pass
           },
           success: function(response) {
             if(response.trim() == 'ok'){
