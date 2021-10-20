@@ -1,6 +1,7 @@
 <?php 
-require_once('./miniRouter-master/miniRouter.php');
+session_start();
 
+require_once('./miniRouter-master/miniRouter.php');
 include_once './dbstalker-master/core/stalker_configuration.core.php';
 include_once './dbstalker-master/core/stalker_registerar.core.php';
 include_once './dbstalker-master/core/stalker_schema.core.php';
