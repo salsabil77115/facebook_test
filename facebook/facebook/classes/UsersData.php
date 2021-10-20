@@ -18,7 +18,7 @@ class UsersData {
           }
       $email=$_POST['email'];
       $password=$_POST['password'];
-      $result = $dbcon->query("SELECT * FROM `users` WHERE `email`='$email' and `password`='$password'");
+      $result = $dbcon-> execute("SELECT * FROM `users` WHERE `email`='$email' and `password`='$password'", array());
       $number_of_rows = $result->fetchColumn();
       
       if ($number_of_rows>0){
@@ -63,9 +63,8 @@ class UsersData {
           }
           
           $date_of_brith=$day."/".$month."/".$year;
-          
-          $result = $dbcon->query("INSERT INTO users (first_name, surname,email,password,Date_of_birth,gender)
-          VALUES ('$firstName', '$surname', '$email','$password','$date_of_brith','$gender')");
+          $result = $dbcon-> execute("INSERT INTO users (first_name, surname,email,password,Date_of_birth,gender)
+          VALUES ('$firstName', '$surname', '$email','$password','$date_of_brith','$gender')", array());
           
           
           if ($result){
