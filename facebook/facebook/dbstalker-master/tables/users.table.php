@@ -6,7 +6,7 @@ class Users extends Stalker_Table
             $table->int("id", 11);
             $table->varchar("first_name", 40);
             $table->varchar("surname", 40);            
-            $table->varchar ("mobile",12)->nullable->def(Null);
+            $table->varchar ("mobile",12)->nullable()->def(Null);
             $table->varchar ("email",40);
             $table->varchar ("password",40);
             $table->varchar ("Date_of_birth",40);

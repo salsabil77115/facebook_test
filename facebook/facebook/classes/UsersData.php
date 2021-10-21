@@ -1,37 +1,41 @@
 <?php
 
 class UsersData {
+    public  $dbcon;
+    public function __construct($con) {
+        $this->dbcon=$con;
+    }
     
    function login(){
       if(isset($_POST['do_login'])){
           
-          if(empty($_POST['email']))
-          {
-              echo "pls enter email";
-              die();
-          }
-          
-          if(empty($_POST['password']))
-          {
-              echo "pls enter password";
-              die();
-          }
-      $email=$_POST['email'];
-      $password=$_POST['password'];
-      $result = $dbcon-> execute("SELECT * FROM `users` WHERE `email`='$email' and `password`='$password'", array());
-      $number_of_rows = $result->fetchColumn();
-      
-      if ($number_of_rows>0){
-          $_SESSION['email']=$email;
+        if(empty($_POST['email']))
+        {
+            echo "pls enter email";
+            die();
+        }
+        
+        if(empty($_POST['password']))
+        {
+            echo "pls enter password";
+            die();
+        }
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $result = $this->dbcon->execute("SELECT * FROM `users` WHERE `email`=? and `password`=?", array($email,$password));
+        $number_of_rows = $result->fetchAll();
+        
+      if ($number_of_rows > 0){
+          $_SESSION['email'] = $email;
           echo 'ok';
       }
       else{
           echo 'user doesnt exist';
       }
       exit();
-    }     ‏
-
+    } 
   }
+  
   function signup(){
       
       if(isset($_POST['do_signup'])){
@@ -63,13 +67,13 @@ class UsersData {
           }
           
           $date_of_brith=$day."/".$month."/".$year;
-          $result = $dbcon-> execute("INSERT INTO users (first_name, surname,email,password,Date_of_birth,gender)
+          $result = $this->dbcon->execute("INSERT INTO users (first_name, surname,email,password,Date_of_birth,gender)
           VALUES ('$firstName', '$surname', '$email','$password','$date_of_brith','$gender')", array());
           
           
           if ($result){
               
-              $_SESSION['email']=$email;
+              $_SESSION['email'] = $email;
               echo 'ok';
           }
           else{
@@ -81,7 +85,6 @@ class UsersData {
           
           
       }
-      
       
   }
 

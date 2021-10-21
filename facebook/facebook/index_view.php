@@ -1,7 +1,8 @@
 <?php
+include 'UsersData.php';
 if(isset($_SESSION['email'])){
     $email=$_SESSION['email'];
-    $result = $dbcon->query("SELECT * FROM `users` WHERE `email`='$email'");
+    $result = UsersData::$this->dbcon->execute("SELECT * FROM `users` WHERE `email`='$email'");
     if ($result){
         while ($row = $result->fetch()) {?>
             <p><?php echo $row["first_name"] ; ?></p>
@@ -13,6 +14,6 @@ if(isset($_SESSION['email'])){
     }
        
   }else{
-        header("Location: login.php?log=0");
-    }   
+        header("Location: ./login");
+  }   
 ?>

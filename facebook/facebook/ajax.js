@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    baseURL = window.location.protocol + "//" + window.location.host + "/facebook_test-main";
     $('#login_button').click(function() {
     
      var email = $("#emailid").val();
@@ -10,7 +11,7 @@ $(document).ready(function(){
         ({
             type:'post',
         //  url:'do_login.php',
-            url:'/api/login',
+            url: baseURL + '/api/login',
             data:{
               do_login: true,
               email: email,
@@ -50,8 +51,7 @@ $(document).ready(function(){
       $.ajax
       ({
 		      type:'post',
-		    //  url:'signup.php',
-		        url:'/api/signup',
+		        url: baseURL + '/api/signup',
 
 		      data:{
 		           do_signup:"do_signup",
@@ -65,6 +65,7 @@ $(document).ready(function(){
 			       gender:gender
       },
       success:function(response) {
+        console.log(response)
           if(response.trim()=='ok'){
            // window.location.href="index.php";
             window.location.href="/";

@@ -1,0 +1,8 @@
+{
+  "database": {
+    "host": "localhost",
+    "database": "notifi",
+    "user": "root",
+    "password": ""
+  }
+}
